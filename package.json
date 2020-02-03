@@ -7,9 +7,17 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "contributors:add": "all-contributors add",
+    "hooks:pre-commit": "node hooks/pre-commit.js",
+    "commit": "git-cz",
+    "release:first": "npm run release -- --first-release",
+    "build:lib": "ng build form-fields",
+    "test:lib": "ng test form-fields",
+    "release": "cd projects/form-fields && standard-version --infile ../../CHANGELOG.md",
+    "test:lib:headless": "cross-env CI=true npm run test:lib"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "~8.2.0",
     "@angular/common": "~8.2.0",
@@ -19,12 +27,14 @@
     "@angular/platform-browser": "~8.2.0",
     "@angular/platform-browser-dynamic": "~8.2.0",
     "@angular/router": "~8.2.0",
+    "@ngneat/lib": "^1.0.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.802.2",
+    "@angular-devkit/build-ng-packagr": "~0.802.2",
     "@angular/cli": "~8.2.2",
     "@angular/compiler-cli": "~8.2.0",
     "@angular/language-service": "~8.2.0",
@@ -39,9 +49,40 @@
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
+    "ng-packagr": "^5.3.0",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
+    "tsickle": "^0.36.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.5.3"
+    "typescript": "~3.5.3",
+    "@commitlint/cli": "8.1.0",
+    "@commitlint/config-angular": "^8.1.0",
+    "@commitlint/config-conventional": "^8.1.0",
+    "git-cz": "^3.2.1",
+    "all-contributors-cli": "^6.8.1",
+    "lint-staged": "^9.2.0",
+    "prettier": "^1.18.2",
+    "standard-version": "^6.0.1",
+    "husky": "^3.0.1",
+    "cross-env": "^5.2.0",
+    "@ngneat/spectator": "^4.11.1"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -e $GIT_PARAMS",
+      "pre-commit": "npm run hooks:pre-commit && lint-staged",
+      "pre-push": "npm run test:lib:headless"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json,css,scss,ts,html,component.html}": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }
