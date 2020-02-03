@@ -1,0 +1,25 @@
+{
+  "name": "form-fields",
+  "version": "1.0.1",
+  "peerDependencies": {
+    "@angular/common": "^8.2.0",
+    "@angular/core": "^8.2.0"
+  },
+  "keywords": [
+    "angular",
+    "angular 2",
+    "form-fields"
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bugs": {
+    "url": "http://github.com/nayfin/neat-co/issue"
+  },
+  "homepage": "http://github.com/nayfin/neat-co#readme",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/nayfin/neat-co"
+  }
+}
